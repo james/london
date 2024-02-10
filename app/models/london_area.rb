@@ -1,0 +1,2 @@
+class LondonArea < ApplicationRecord
+end
