@@ -4,7 +4,7 @@ class CreateLondonAreas < ActiveRecord::Migration[7.1]
       t.string :name
       t.string :type
       t.integer :score
-      t.geometry :geometry
+      t.geometry :geometry, geographic: true
 
       t.timestamps
     end
