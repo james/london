@@ -61,4 +61,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:suite) do
+    require 'rake'
+    Rails.application.load_tasks
+    Rake::Task["data:migrate"].invoke
+  end
 end

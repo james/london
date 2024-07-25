@@ -15,6 +15,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_11_175439) do
   enable_extension "plpgsql"
   enable_extension "postgis"
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "london_areas", force: :cascade do |t|
     t.string "name"
     t.string "area_type"
