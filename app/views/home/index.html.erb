@@ -1,0 +1,12 @@
+<form action="<%= root_path %>" method="get">
+  <label for="postcode">Postcode:</label>
+  <input type="text" id="postcode" name="postcode" value="<%= params[:postcode] %>">
+  <input type="submit" value="Submit">
+</form>
+
+<% if params[:postcode] %>
+    <%= @nearest_tube.name %>
+    <% @areas.each do |area| %>
+        <%= area.name %>
+    <% end %>
+<% end %>
