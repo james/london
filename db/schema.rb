@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_11_175439) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_28_125910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -23,6 +23,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_11_175439) do
     t.string "area_type"
     t.integer "score"
     t.geography "geometry", limit: {:srid=>4326, :type=>"geometry", :geographic=>true}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tube_stations", force: :cascade do |t|
+    t.string "name"
+    t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.string "zone"
+    t.boolean "night"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
