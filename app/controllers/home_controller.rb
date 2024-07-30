@@ -7,10 +7,7 @@ class HomeController < ApplicationController
       result = JSON.parse(response)
 
       if result['status'] == 200
-        latitude = result['result']['latitude']
-        longitude = result['result']['longitude']
-        @areas = LondonArea.find_by_latitude_and_longitude(latitude, longitude)
-        @nearest_tube = TubeStation.find_nearest(latitude, longitude)
+        @scorecard = Scorecard.new(result['result']['latitude'], result['result']['longitude'])
       else
         @error = "Postcode not found"
       end

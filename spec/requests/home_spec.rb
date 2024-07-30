@@ -9,6 +9,7 @@ RSpec.describe "Homes", type: :request do
       get root_path, params: { postcode: 'E10 5LL' }
 
       expect(response).to have_http_status(:success)
+      expect(response.body).to include("50 total points!")
       expect(response.body).to include("Leyton")
       expect(response.body).to include("Waltham Forest")
       expect(response.body).to include("E10 postcode district")

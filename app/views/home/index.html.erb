@@ -4,9 +4,14 @@
   <input type="submit" value="Submit">
 </form>
 
+<h2><%= @scorecard.total_points %> total points!</h2>
+
 <% if params[:postcode] %>
-    <%= @nearest_tube.name %>
-    <% @areas.each do |area| %>
-        <%= area.name %>
-    <% end %>
+  <% @scorecard.scores.each do |score| %>
+    <div>
+      <h3><%= score.name %></h3>
+      <p><%= score.description %></p>
+      <p>Points: <%= score.points %></p>
+    </div>
+  <% end %>
 <% end %>
