@@ -8,4 +8,12 @@ RSpec.describe TubeStation, type: :model do
       expect(nearest_station).to eq(tube_station)
     end
   end
+
+  describe "#distance_from" do
+    it "returns the correct distance from the given coordinates" do
+      tube_station = TubeStation.find_by(name: "Leyton Midland Road")
+      distance = tube_station.distance_from(51.5650, -0.0300)
+      expect(distance).to eq(1654)
+    end
+  end
 end
