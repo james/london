@@ -34,6 +34,10 @@ class Scorecard
         scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 10", points: 1)
       end
     end
+
+    if distance_to_nearest_night_tube_station < 2500
+      scores << Score.new(name: "Night Tube", description: "Your nearby station #{nearest_night_tube_station.name} runs night services", points: 20)
+    end
   end
 
   def areas
@@ -46,6 +50,14 @@ class Scorecard
 
   def distance_to_nearest_tube_station
     @distance_to_nearest_tube_station ||= nearest_tube_station.distance_from(latitude, longitude)
+  end
+
+  def nearest_night_tube_station
+    @nearest_night_tube_station ||= TubeStation.night_stations.find_nearest(latitude, longitude)
+  end
+
+  def distance_to_nearest_night_tube_station
+    @distance_to_nearest_night_tube_station ||= nearest_night_tube_station.distance_from(latitude, longitude)
   end
 
   def total_points
