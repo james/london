@@ -4,9 +4,10 @@
   <input type="submit" value="Submit">
 </form>
 
-<h2><%= @scorecard.total_points %> total points!</h2>
+<%= @error %>
 
-<% if params[:postcode] %>
+<% if @scorecard %>
+  <h2><%= @scorecard.total_points %> total points!</h2>
   <% @scorecard.scores.each do |score| %>
     <div>
       <h3><%= score.name %></h3>
