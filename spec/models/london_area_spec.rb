@@ -14,8 +14,15 @@ RSpec.describe LondonArea, type: :model do
       expect(areas).to include(borough)
     end
 
+    it "returns the ULEZ zones" do
+      ulez2021 = LondonArea.find_by(name: 'ULEZ 2021')
+      ulez2023 = LondonArea.find_by(name: 'ULEZ 2023')
+      expect(areas).to include(ulez2021)
+      expect(areas).to include(ulez2023)
+    end
+
     it "includes nothing else" do
-      expect(areas.count).to eq(2)
+      expect(areas.count).to eq(4)
     end
   end
 end
