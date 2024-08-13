@@ -15,7 +15,7 @@ class Scorecard
       when 1
         scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 1", points: 50)
       when 2
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 1", points: 40)
+        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 2", points: 40)
       when 3
         scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 3", points: 30)
       when 4
