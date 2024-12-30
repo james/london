@@ -7,7 +7,7 @@ class Scorecard
     @scores = []
 
     areas.each do |area|
-      scores << Score.new(name: area.name, description: area.area_type, points: area.score, geojson: area.geometry)
+      scores << Score.new(name: area.name, description: area.area_type, points: area.score, geojson: RGeo::GeoJSON.encode(area.geometry).to_json)
     end
 
     if distance_to_nearest_tube_station < 5000

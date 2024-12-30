@@ -17,7 +17,7 @@
 
     <h2><%= @scorecard.total_points %> total points!</h2>
     <% @scorecard.scores.each do |score| %>
-      <div>
+      <div class="score" data-geojson="<%= score.geojson %>" data-action="click->map#showArea">
         <h3><%= score.name %></h3>
         <p><%= score.description %></p>
         <p>Points: <%= score.points %></p>
