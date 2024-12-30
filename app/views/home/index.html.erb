@@ -1,4 +1,3 @@
-<div id="map" data-controller="map" style="height: 300px"></div>
 
 <form action="<%= root_path %>" method="get">
   <label for="postcode">Postcode:</label>
@@ -9,6 +8,14 @@
 <%= @error %>
 
 <% if @scorecard %>
+<div 
+id="map"
+data-controller="map"
+style="height: 300px"
+data-map-latitude="<%= @scorecard.latitude %>"
+data-map-longitude="<%= @scorecard.longitude %>"
+></div>
+
   <h2><%= @scorecard.total_points %> total points!</h2>
   <% @scorecard.scores.each do |score| %>
     <div>
