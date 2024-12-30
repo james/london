@@ -1,27 +1,27 @@
-
-<form action="<%= root_path %>" method="get">
-  <label for="postcode">Postcode:</label>
-  <input type="text" id="postcode" name="postcode" value="<%= params[:postcode] %>">
-  <input type="submit" value="Submit">
-</form>
-
-<%= @error %>
-
-<% if @scorecard %>
-<div 
-id="map"
-data-controller="map"
-style="height: 300px"
-data-map-latitude="<%= @scorecard.latitude %>"
-data-map-longitude="<%= @scorecard.longitude %>"
-></div>
-
-  <h2><%= @scorecard.total_points %> total points!</h2>
-  <% @scorecard.scores.each do |score| %>
-    <div>
-      <h3><%= score.name %></h3>
-      <p><%= score.description %></p>
-      <p>Points: <%= score.points %></p>
-    </div>
+<div data-controller="map"
+  <% if @scorecard%>
+    data-map-latitude="<%= @scorecard.latitude %>"
+    data-map-longitude="<%= @scorecard.longitude %>"
   <% end %>
-<% end %>
+>
+  <form action="<%= root_path %>" method="get">
+    <label for="postcode">Postcode:</label>
+    <input type="text" id="postcode" name="postcode" value="<%= params[:postcode] %>">
+    <input type="submit" value="Submit">
+  </form>
+
+  <%= @error %>
+
+  <% if @scorecard %>
+    <div id="map" style="height: 300px"></div>
+
+    <h2><%= @scorecard.total_points %> total points!</h2>
+    <% @scorecard.scores.each do |score| %>
+      <div>
+        <h3><%= score.name %></h3>
+        <p><%= score.description %></p>
+        <p>Points: <%= score.points %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

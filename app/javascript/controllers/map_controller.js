@@ -5,8 +5,8 @@ export default class extends Controller {
         const latitude = this.element.dataset.mapLatitude;
         const longitude = this.element.dataset.mapLongitude;
 
-        var map = L.map(this.element).setView([latitude, longitude], 13);
-
+        var map = L.map(this.element.querySelector('#map')).setView([latitude, longitude], 13);
+        
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
