@@ -7,6 +7,11 @@ export default class extends Controller {
         const longitude = this.element.dataset.mapLongitude;
 
         this.map = L.map(this.element.querySelector('#map')).setView([latitude, longitude], 13);
+        this.map.options.minZoom = 9;
+        this.map.options.maxZoom = 18;
+
+        this.map.setMaxBounds(L.latLngBounds(L.latLng(51, -0.75), L.latLng(52, 0.5)));
+
         const mtLayer = new L.MaptilerLayer({
             apiKey: "vPTKvn3quFUGwtEkShs8",
             style: "85105982-deff-46dc-879f-70b866a06391"
