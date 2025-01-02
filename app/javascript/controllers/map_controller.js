@@ -1,16 +1,16 @@
 import { Controller } from "@hotwired/stimulus"
 import L from 'leaflet'
+import "@maptiler/leaflet-maptilersdk";
 export default class extends Controller {
     connect() {
         const latitude = this.element.dataset.mapLatitude;
         const longitude = this.element.dataset.mapLongitude;
 
         this.map = L.map(this.element.querySelector('#map')).setView([latitude, longitude], 13);
-        
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(this.map);
-        
+        const mtLayer = new L.MaptilerLayer({
+            apiKey: "vPTKvn3quFUGwtEkShs8",
+            style: "85105982-deff-46dc-879f-70b866a06391"
+          }).addTo(this.map);
         L.marker([latitude, longitude]).addTo(this.map);
     }
 
