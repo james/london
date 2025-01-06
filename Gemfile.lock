@@ -96,6 +96,9 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    dartsass-rails (0.5.1)
+      railties (>= 6.0.0)
+      sass-embedded (~> 1.63)
     data_migrate (11.2.0)
       activerecord (>= 6.1)
       railties (>= 6.1)
@@ -110,6 +113,15 @@ GEM
     erubi (1.13.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (4.29.2-aarch64-linux)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.29.2-arm64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.29.2-x86_64-linux)
+      bigdecimal
+      rake (>= 13)
     hashdiff (1.1.2)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
@@ -229,6 +241,12 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.13.2)
+    sass-embedded (1.83.0-aarch64-linux-gnu)
+      google-protobuf (~> 4.28)
+    sass-embedded (1.83.0-arm64-darwin)
+      google-protobuf (~> 4.28)
+    sass-embedded (1.83.0-x86_64-linux-gnu)
+      google-protobuf (~> 4.28)
     securerandom (0.4.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -269,6 +287,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter
   bootsnap
+  dartsass-rails (~> 0.5.1)
   data_migrate
   debug
   dockerfile-rails (>= 1.6)

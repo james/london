@@ -67,3 +67,5 @@ group :development do
 end
 
 gem "dockerfile-rails", ">= 1.6", :group => :development
+
+gem "dartsass-rails", "~> 0.5.1"
