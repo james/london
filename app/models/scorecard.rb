@@ -1,6 +1,10 @@
 class Scorecard
   attr_accessor :latitude, :longitude, :scores
 
+  def self.max_score
+    self.new(51.501009, -0.141588).total_points
+  end
+
   def initialize(latitude, longitude)
     @latitude = latitude
     @longitude = longitude
@@ -62,6 +66,10 @@ class Scorecard
 
   def total_points
     scores.collect(&:points).sum
+  end
+
+  def percentage_of_max_score
+    ((total_points.to_f / self.class.max_score.to_f) * 100).round
   end
 end
 

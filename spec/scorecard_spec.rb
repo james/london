@@ -14,5 +14,15 @@ RSpec.describe Scorecard, type: :model do
       leyton_station = TubeStation.find_by(name: 'Leyton')
       expect(scorecard.nearest_night_tube_station).to eq(leyton_station)
     end
+
+    it "returns 69% as percentage of maximum score" do
+      expect(scorecard.percentage_of_max_score).to eq(69)
+    end
+  end
+
+  describe "#max_score" do
+    it "returns the maximum score" do
+      expect(Scorecard.max_score).to eq(160)
+    end
   end
 end
