@@ -4,23 +4,33 @@
     data-map-longitude="<%= @scorecard.longitude %>"
   <% end %>
 >
-  <form action="<%= root_path %>" method="get">
-    <label for="postcode">Postcode:</label>
-    <input type="text" id="postcode" name="postcode" value="<%= params[:postcode] %>">
-    <input type="submit" value="Submit">
-  </form>
+  <div id="map_header">
+    <h1>Do you live in London?</h1>
+
+    <form action="<%= root_path %>" method="get">
+      <label for="postcode">Type in your postcode and find out how in London you are:</label>
+      <input type="text" id="postcode" name="postcode" value="<%= params[:postcode] %>">
+      <input type="submit" value="Submit">
+    </form>
+  </div>
 
   <%= @error %>
 
   <% if @scorecard %>
-    <div id="map" style="height: 300px"></div>
+    <div class="score_total">
+      <h2><%= params[:postcode] %> is <%= @scorecard.percentage_of_max_score %>% in London</h2>
+    </div>
 
-    <h2><%= @scorecard.total_points %> total points!</h2>
+    <div id="map"></div>
+
+    <div class="score_total">
+      <h2>Here are the things that put <%= params[:postcode] %> in London</h2>
+    </div>
+
     <% @scorecard.scores.each do |score| %>
       <div class="score" data-geojson="<%= score.geojson %>" data-action="click->map#showArea">
         <h3><%= score.name %></h3>
         <p><%= score.description %></p>
-        <p>Points: <%= score.points %></p>
       </div>
     <% end %>
   <% end %>
