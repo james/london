@@ -6,7 +6,7 @@ export default class extends Controller {
         const latitude = this.element.dataset.mapLatitude;
         const longitude = this.element.dataset.mapLongitude;
 
-        this.map = L.map(this.element.querySelector('#map')).setView([latitude, longitude], 13);
+        this.map = L.map(this.element.querySelector('#map')).setView([latitude, longitude], 14);
         this.map.options.minZoom = 9;
         this.map.options.maxZoom = 18;
 
