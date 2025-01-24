@@ -29,8 +29,7 @@
 
     <% @scorecard.scores.each do |score| %>
       <div class="score" data-geojson="<%= score.geojson %>" data-action="click->map#showArea">
-        <h3><%= score.name %></h3>
-        <p><%= score.description %></p>
+        <%= render partial: "/home/scores/#{score.template}", locals: {score: score} %>
       </div>
     <% end %>
   <% end %>

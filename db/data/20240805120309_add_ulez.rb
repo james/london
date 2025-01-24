@@ -8,7 +8,7 @@ class AddUlez < ActiveRecord::Migration[7.1]
     geojson.each do |feature|
       LondonArea.create!(
         name: feature.properties['layer'],
-        area_type: "ULEZ",
+        area_type: "ulez",
         score: 20,
         geometry: feature.geometry,
       )
@@ -17,6 +17,6 @@ class AddUlez < ActiveRecord::Migration[7.1]
   end
 
   def down
-    LondonArea.where(area_type: "ULEZ").destroy_all
+    LondonArea.where(area_type: "ulez").destroy_all
   end
 end

@@ -11,36 +11,36 @@ class Scorecard
     @scores = []
 
     areas.each do |area|
-      scores << Score.new(name: area.name, description: area.area_type, points: area.score, geojson: RGeo::GeoJSON.encode(area.geometry).to_json)
+      scores << Score.new(name: area.name, template: area.area_type, points: area.score, geojson: RGeo::GeoJSON.encode(area.geometry).to_json)
     end
 
     if distance_to_nearest_tube_station < 5000
       case nearest_tube_station.zone.to_i
       when 1
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 1", points: 50)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 50)
       when 2
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 2", points: 40)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 40)
       when 3
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 3", points: 30)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 30)
       when 4
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 4", points: 20)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 20)
       when 5
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 5", points: 10)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 10)
       when 6
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 6", points: 5)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 5)
       when 7
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 7", points: 4)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 4)
       when 8
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 8", points: 3)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 3)
       when 9
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 9", points: 2)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 2)
       when 10
-        scores << Score.new(name: nearest_tube_station.name, description: "Your nearest tube station is Zone 10", points: 1)
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, points: 1)
       end
     end
 
     if distance_to_nearest_night_tube_station < 2500
-      scores << Score.new(name: "Night Tube", description: "Your nearby station #{nearest_night_tube_station.name} runs night services", points: 20)
+      scores << Score.new(template: 'night_tube', name: nearest_night_tube_station.name, points: 20)
     end
   end
 
@@ -74,11 +74,12 @@ class Scorecard
 end
 
 class Score
-  attr_accessor :name, :description, :points, :geojson
+  attr_accessor :name, :template, :points, :geojson, :zone
   def initialize(args = {})
     @name = args[:name]
-    @description = args[:description]
+    @template = args[:template]
     @points = args[:points]
     @geojson = args[:geojson]
+    @zone = args[:zone]
   end
 end

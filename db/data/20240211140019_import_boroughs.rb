@@ -9,14 +9,14 @@ class ImportBoroughs < ActiveRecord::Migration[7.1]
       if feature.properties['inner_statistical']
         LondonArea.create!(
           name: feature.properties['name'],
-          area_type: "Inner London Borough",
+          area_type: "inner_borough",
           score: 20,
           geometry: feature.geometry,
         )
       else
         LondonArea.create!(
           name: feature.properties['name'],
-          area_type: "Outer London Borough",
+          area_type: "outer_borough",
           score: 10,
           geometry: feature.geometry,
         )

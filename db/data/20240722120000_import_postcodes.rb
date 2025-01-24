@@ -9,7 +9,7 @@ class ImportPostcodes < ActiveRecord::Migration[7.1]
       geojson.each do |feature|
         LondonArea.create!(
           name: feature.properties['description'],
-          area_type: "London Post Code",
+          area_type: "post_code",
           score: 10,
           geometry: feature.geometry,
         )
@@ -19,6 +19,6 @@ class ImportPostcodes < ActiveRecord::Migration[7.1]
   end
 
   def down
-    LondonArea.where(area_type: "London Post Code").destroy_all
+    LondonArea.where(area_type: "post_code").destroy_all
   end
 end
