@@ -15,27 +15,22 @@ class Scorecard
     end
 
     if distance_to_nearest_tube_station < 5000
-      case nearest_tube_station.zone.to_i
-      when 1
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 50)
-      when 2
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 40)
-      when 3
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 30)
-      when 4
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 20)
-      when 5
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 10)
-      when 6
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 5)
-      when 7
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 4)
-      when 8
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 3)
-      when 9
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 2)
-      when 10
-        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: 1)
+      points = case nearest_tube_station.zone.to_i
+           when 1 then 50
+           when 2 then 40
+           when 3 then 30
+           when 4 then 20
+           when 5 then 10
+           when 6 then 5
+           when 7 then 4
+           when 8 then 3
+           when 9 then 2
+           when 10 then 1
+           else 0
+           end
+
+      if points > 0
+        scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: points)
       end
     end
 
