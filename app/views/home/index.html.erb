@@ -14,9 +14,15 @@
     </form>
   </div>
 
-  <%= @error %>
-
-  <% if @scorecard %>
+  <% if @error %>
+    <div class="score_total">
+      <h2><%= @error %></h2>
+    </div>
+  <% elsif @scorecard&.total_points == 0 %>
+    <div class="score_total">
+      <h2>That's not even close to London</h2>
+    </div>
+  <% elsif @scorecard %>
     <div class="score_total">
       <h2><%= params[:postcode] %> is <%= @scorecard.percentage_of_max_score %>% in London</h2>
     </div>
