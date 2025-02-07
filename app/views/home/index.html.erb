@@ -28,7 +28,11 @@
     </div>
 
     <% @scorecard.scores.each do |score| %>
-      <div class="score" data-geojson="<%= score.geojson %>" data-action="click->map#showArea">
+      <% if score.geojson.present? %>
+        <div class="score" data-geojson="<%= score.geojson %>" data-action="click->map#showArea">
+      <% elsif score.geo_point.present? %>
+        <div class="score" data-geopoint="<%= score.geo_point.to_json %>" data-action="click->map#showPoint">
+      <% end %>
         <%= render partial: "/home/scores/#{score.template}", locals: {score: score} %>
       </div>
     <% end %>
