@@ -16,13 +16,13 @@ RSpec.describe Scorecard, type: :model do
     end
 
     it "returns 69% as percentage of maximum score" do
-      expect(scorecard.percentage_of_max_score).to eq(69)
+      expect(scorecard.percentage_of_max_score).to eq(72)
     end
   end
 
   describe "#max_score" do
     it "returns the maximum score" do
-      expect(Scorecard.max_score).to eq(160)
+      expect(Scorecard.max_score).to eq(180)
     end
   end
 end

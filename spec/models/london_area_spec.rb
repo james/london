@@ -21,8 +21,18 @@ RSpec.describe LondonArea, type: :model do
       expect(areas).to include(ulez2023)
     end
 
+    it "returns the 020 area code" do
+      area_code = LondonArea.find_by(name: '020')
+      expect(areas).to include(area_code)
+    end
+
+    it "returns the travel to work area" do
+      travel_to_work_area = LondonArea.find_by(name: 'Travel to work')
+      expect(areas).to include(travel_to_work_area)
+    end
+
     it "includes nothing else" do
-      expect(areas.count).to eq(4)
+      expect(areas.count).to eq(6)
     end
   end
 end
