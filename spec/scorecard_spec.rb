@@ -15,14 +15,23 @@ RSpec.describe Scorecard, type: :model do
       expect(scorecard.nearest_night_tube_station).to eq(leyton_station)
     end
 
+    it "returns Here East North as nearest cycle dock" do
+      cycle_dock = CycleDock.find_by(name: 'Here East North, Queen Elizabeth Olympic Park')
+      expect(scorecard.nearest_cycle_dock).to eq(cycle_dock)
+    end
+
+    it "returns 1881 for distance to nearest cycle dock" do
+      expect(scorecard.distance_to_nearest_cycle_dock).to eq(1881)
+    end
+
     it "returns 69% as percentage of maximum score" do
-      expect(scorecard.percentage_of_max_score).to eq(72)
+      expect(scorecard.percentage_of_max_score).to eq(68)
     end
   end
 
   describe "#max_score" do
     it "returns the maximum score" do
-      expect(Scorecard.max_score).to eq(180)
+      expect(Scorecard.max_score).to eq(190)
     end
   end
 end

@@ -37,6 +37,10 @@ class Scorecard
     if distance_to_nearest_night_tube_station < 2500
       scores << Score.new(template: 'night_tube', name: nearest_night_tube_station.name, geo_point: nearest_night_tube_station.lonlat, points: 20)
     end
+
+    if distance_to_nearest_cycle_dock < 500
+      scores << Score.new(template: 'cycle_dock', name: nearest_cycle_dock.name, geo_point: nearest_cycle_dock.lonlat, points: 10)
+    end
   end
 
   def areas
@@ -57,6 +61,14 @@ class Scorecard
 
   def distance_to_nearest_night_tube_station
     @distance_to_nearest_night_tube_station ||= nearest_night_tube_station.distance_from(latitude, longitude)
+  end
+
+  def nearest_cycle_dock
+    @nearest_cycle_dock ||= CycleDock.find_nearest(latitude, longitude)
+  end
+
+  def distance_to_nearest_cycle_dock
+    @distance_to_nearest_cycle_dock ||= nearest_cycle_dock.distance_from(latitude, longitude)
   end
 
   def total_points
