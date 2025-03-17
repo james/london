@@ -24,6 +24,10 @@ RSpec.describe Scorecard, type: :model do
       expect(scorecard.distance_to_nearest_cycle_dock).to eq(1881)
     end
 
+    it "returns a ptal value" do
+      expect(scorecard.ptal_value).to be_a(PtalValue)
+    end
+
     it "returns 69% as percentage of maximum score" do
       expect(scorecard.percentage_of_max_score).to eq(68)
     end

@@ -41,6 +41,22 @@ class Scorecard
     if distance_to_nearest_cycle_dock < 500
       scores << Score.new(template: 'cycle_dock', name: nearest_cycle_dock.name, geo_point: nearest_cycle_dock.lonlat, points: 10)
     end
+
+    if ptal_value
+      points = case nearest_tube_station.zone.to_i
+        when "1a" then 1
+        when "1b" then 2
+        when "2" then 5
+        when "3" then 10
+        when "4" then 20
+        when "5" then 30
+        when "6a" then 40
+        when "6b" then 50
+        else 0
+        end
+
+      scores << Score.new(template: 'ptal', name: ptal_value.byptal, points: points)
+    end
   end
 
   def areas
@@ -69,6 +85,16 @@ class Scorecard
 
   def distance_to_nearest_cycle_dock
     @distance_to_nearest_cycle_dock ||= nearest_cycle_dock.distance_from(latitude, longitude)
+  end
+
+  def ptal_value
+    return @ptal_value if defined?(@ptal_value)
+    ptal_value = PtalValue.find_nearest(latitude, longitude)
+    if ptal_value.distance_from(latitude, longitude) < 100
+      @ptal_value = ptal_value
+    else
+      @ptal_value = nil
+    end
   end
 
   def total_points

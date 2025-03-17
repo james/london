@@ -38,6 +38,8 @@
         <div class="score" data-geojson="<%= score.geojson %>" data-action="click->map#showArea">
       <% elsif score.geo_point.present? %>
         <div class="score" data-geopoint="<%= score.geo_point.to_json %>" data-action="click->map#showPoint">
+      <% else %>
+        <div class="score" data-action="click->map#clearMap">
       <% end %>
         <%= render partial: "/home/scores/#{score.template}", locals: {score: score} %>
       </div>
