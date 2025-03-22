@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_22_124428) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_22_130409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_22_124428) do
     t.geography "geometry", limit: {:srid=>4326, :type=>"geometry", :geographic=>true}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "geojson"
   end
 
   create_table "prets", force: :cascade do |t|
