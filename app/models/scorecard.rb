@@ -100,13 +100,7 @@ class Scorecard
   end
 
   def ptal_value
-    return @ptal_value if defined?(@ptal_value)
-    ptal_value = PtalValue.find_nearest(latitude, longitude)
-    if ptal_value.distance_from(latitude, longitude) < 100
-      @ptal_value = ptal_value
-    else
-      @ptal_value = nil
-    end
+    @ptal_value ||=  PtalValue.within_radius(latitude, longitude, 100).first
   end
 
   def total_points
