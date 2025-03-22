@@ -42,6 +42,10 @@ class Scorecard
       scores << Score.new(template: 'cycle_dock', name: nearest_cycle_dock.name, geo_point: nearest_cycle_dock.lonlat, points: 10)
     end
 
+    if distance_to_nearest_pret < 500
+      scores << Score.new(template: 'pret', address: nearest_pret.address, geo_point: nearest_pret.lonlat, points: 10)
+    end
+
     if ptal_value
       points = case nearest_tube_station.zone.to_i
         when "1a" then 1
@@ -85,6 +89,14 @@ class Scorecard
 
   def distance_to_nearest_cycle_dock
     @distance_to_nearest_cycle_dock ||= nearest_cycle_dock.distance_from(latitude, longitude)
+  end
+
+  def nearest_pret
+    @nearest_pret ||= Pret.find_nearest(latitude, longitude)
+  end
+
+  def distance_to_nearest_pret
+    @distance_to_nearest_pret ||= nearest_pret.distance_from(latitude, longitude)
   end
 
   def ptal_value
