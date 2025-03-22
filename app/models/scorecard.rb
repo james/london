@@ -47,7 +47,7 @@ class Scorecard
     end
 
     if ptal_value
-      points = case nearest_tube_station.zone.to_i
+      points = case ptal_value.byptal
         when "1a" then 1
         when "1b" then 2
         when "2" then 5
