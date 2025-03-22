@@ -13,10 +13,10 @@ RSpec.describe "Homes", type: :request do
     end
 
     it "shows not London message if postcode in Bristol" do
-      stub_request(:get, "https://api.postcodes.io/postcodes/BS1%201DA").
-      to_return(status: 200, body:'{"status":200,"result":{"postcode":"BS1 1DA","quality":1,"eastings":358754,"northings":173036,"country":"England","nhs_ha":"South West","longitude":-2.595004,"latitude":51.454791,"european_electoral_region":"South West","primary_care_trust":"Bristol","region":"South West","lsoa":"Bristol 032B","msoa":"Bristol 032","incode":"1DA","outcode":"BS1","parliamentary_constituency":"Bristol Central","parliamentary_constituency_2024":"Bristol Central","admin_district":"Bristol, City of","parish":"Bristol, City of, unparished area","admin_county":null,"date_of_introduction":"198001","admin_ward":"Central","ced":null,"ccg":"NHS Bristol, North Somerset and South Gloucestershire","nuts":"Bristol, City of","pfa":"Avon and Somerset","codes":{"admin_district":"E06000023","admin_county":"E99999999","admin_ward":"E05010892","parish":"E43000019","parliamentary_constituency":"E14001131","parliamentary_constituency_2024":"E14001131","ccg":"E38000222","ccg_id":"15C","ced":"E99999999","nuts":"TLK11","lsoa":"E01014540","msoa":"E02003043","lau2":"E06000023","pfa":"E23000036"}}}')
+      stub_request(:get, "https://api.postcodes.io/postcodes/TR18%205EG").
+      to_return(status: 200, body:'{"status":200,"result":{"postcode":"TR18 5EG","quality":1,"eastings":146278,"northings":28452,"country":"England","nhs_ha":"South West","longitude":-5.549482,"latitude":50.101832,"european_electoral_region":"South West","primary_care_trust":"Cornwall and Isles of Scilly","region":"South West","lsoa":"Cornwall 070D","msoa":"Cornwall 070","incode":"5EG","outcode":"TR18","parliamentary_constituency":"St Ives","parliamentary_constituency_2024":"St Ives","admin_district":"Cornwall","parish":"Penzance","admin_county":null,"date_of_introduction":"198001","admin_ward":"Mousehole, Newlyn & St Buryan","ced":null,"ccg":"NHS Cornwall and the Isles of Scilly","nuts":"Cornwall","pfa":"Devon & Cornwall","codes":{"admin_district":"E06000052","admin_county":"E99999999","admin_ward":"E05013311","parish":"E04011505","parliamentary_constituency":"E14001511","parliamentary_constituency_2024":"E14001511","ccg":"E38000089","ccg_id":"11N","ced":"E99999999","nuts":"TLK30","lsoa":"E01019004","msoa":"E02003951","lau2":"E06000052","pfa":"E23000035"}}}')
 
-      get root_path, params: { postcode: 'BS1 1DA' }
+      get root_path, params: { postcode: 'TR18 5EG' }
 
       expect(response).to have_http_status(:success)
       expect(response.body).to include("That's not even close to London")
