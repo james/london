@@ -5,6 +5,7 @@ RSpec.describe Scorecard, type: :model do
     let(:latitude) { 51.5650 }
     let(:longitude) { -0.0300 }
     let(:scorecard) { Scorecard.new(latitude, longitude) }
+
     it "returns Leyton Midland station as the nearest station" do
       leyton_midland_station = TubeStation.find_by(name: 'Leyton Midland Road')
       expect(scorecard.nearest_tube_station).to eq(leyton_midland_station)
@@ -28,14 +29,14 @@ RSpec.describe Scorecard, type: :model do
       expect(scorecard.ptal_value).to be_a(PtalValue)
     end
 
-    it "returns 69% as percentage of maximum score" do
-      expect(scorecard.percentage_of_max_score).to eq(54)
+    it "returns 56% as percentage of maximum score" do
+      expect(scorecard.percentage_of_max_score).to eq(56)
     end
   end
 
   describe "#max_score" do
     it "returns the maximum score" do
-      expect(Scorecard.max_score).to eq(250)
+      expect(Scorecard.max_score).to eq(240)
     end
   end
 end
