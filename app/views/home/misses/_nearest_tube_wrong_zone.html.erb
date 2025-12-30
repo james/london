@@ -1,0 +1,3 @@
+<h2>Tube station not in Zone 1</h2>
+
+<p>The nearest tube station is <%= score.name %> (Zone <%= score.zone %>), which is <%= @scorecard.distance_to_nearest_tube_station.round %> metres away. To score maximum points, you need to be near a Zone 1 station. You're missing out on <%= score.points %> points.</p>

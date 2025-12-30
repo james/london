@@ -39,4 +39,66 @@ RSpec.describe Scorecard, type: :model do
       expect(Scorecard.max_score).to eq(240)
     end
   end
+
+  describe "misses" do
+    let(:latitude) { 51.5650 }
+    let(:longitude) { -0.0300 }
+    let(:scorecard) { Scorecard.new(latitude, longitude) }
+
+    it "initializes misses array" do
+      expect(scorecard.misses).to be_an(Array)
+    end
+
+    it "adds misses for non-maximum scores" do
+      expect(scorecard.misses).not_to be_empty
+    end
+
+    it "includes missed points for tube zones not being Zone 1" do
+      tube_miss = scorecard.misses.find { |m| m.template == 'nearest_tube_wrong_zone' }
+      expect(tube_miss).to be_present
+      expect(tube_miss.points).to be > 0
+    end
+
+    it "has night tube in scores (Leyton has night tube service)" do
+      night_tube_score = scorecard.scores.find { |s| s.template == 'night_tube' }
+      expect(night_tube_score).to be_present
+      expect(night_tube_score.points).to eq(20)
+    end
+
+    it "includes miss for no nearby cycle dock" do
+      cycle_miss = scorecard.misses.find { |m| m.template == 'cycle_dock' }
+      expect(cycle_miss).to be_present
+      expect(cycle_miss.points).to eq(10)
+    end
+
+    it "includes miss for no nearby Pret" do
+      pret_miss = scorecard.misses.find { |m| m.template == 'pret' }
+      expect(pret_miss).to be_present
+      expect(pret_miss.points).to eq(10)
+    end
+
+    it "includes miss for PTAL not being 6b" do
+      ptal_miss = scorecard.misses.find { |m| m.template == 'ptal' }
+      expect(ptal_miss).to be_present
+      expect(ptal_miss.points).to be > 0
+    end
+
+    context "for central London location" do
+      let(:latitude) { 51.50101 }
+      let(:longitude) { -0.141563 }
+      let(:scorecard) { Scorecard.new(latitude, longitude) }
+
+      it "has fewer misses" do
+        expect(scorecard.misses.length).to be < 5
+      end
+
+      it "does not include tube miss if in Zone 1" do
+        tube_score = scorecard.scores.find { |s| s.template == 'nearest_tube' }
+        if tube_score&.zone == 1
+          tube_miss = scorecard.misses.find { |m| m.template == 'nearest_tube' }
+          expect(tube_miss).to be_nil
+        end
+      end
+    end
+  end
 end

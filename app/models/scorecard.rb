@@ -1,5 +1,5 @@
 class Scorecard
-  attr_accessor :latitude, :longitude, :scores
+  attr_accessor :latitude, :longitude, :scores, :misses
 
   def self.max_score
     self.new(51.501009, -0.141588).total_points
@@ -9,11 +9,14 @@ class Scorecard
     @latitude = latitude
     @longitude = longitude
     @scores = []
+    @misses = []
 
     areas.each do |area|
       scores << Score.new(name: area.name, template: area.area_type, points: area.score, geojson: area.geojson)
     end
 
+    # Tube station scoring
+    max_tube_points = 50
     if distance_to_nearest_tube_station < 5000
       points = case nearest_tube_station.zone.to_i
            when 1 then 50
@@ -31,21 +34,44 @@ class Scorecard
 
       if points > 0
         scores << Score.new(template: 'nearest_tube', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: points)
+
+        # Add miss if not the maximum score for this category
+        if points < max_tube_points
+          missed_points = max_tube_points - points
+          misses << Score.new(template: 'nearest_tube_wrong_zone', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: missed_points)
+        end
       end
+    else
+      # No tube station within range
+      misses << Score.new(template: 'nearest_tube_too_far', name: nearest_tube_station.name, zone: nearest_tube_station.zone.to_i, geo_point: nearest_tube_station.lonlat, points: max_tube_points)
     end
 
+    # Night tube scoring
+    max_night_tube_points = 20
     if distance_to_nearest_night_tube_station < 2500
-      scores << Score.new(template: 'night_tube', name: nearest_night_tube_station.name, geo_point: nearest_night_tube_station.lonlat, points: 20)
+      scores << Score.new(template: 'night_tube', name: nearest_night_tube_station.name, geo_point: nearest_night_tube_station.lonlat, points: max_night_tube_points)
+    else
+      misses << Score.new(template: 'night_tube', name: nearest_night_tube_station.name, geo_point: nearest_night_tube_station.lonlat, points: max_night_tube_points)
     end
 
+    # Cycle dock scoring
+    max_cycle_dock_points = 10
     if distance_to_nearest_cycle_dock < 500
-      scores << Score.new(template: 'cycle_dock', name: nearest_cycle_dock.name, geo_point: nearest_cycle_dock.lonlat, points: 10)
+      scores << Score.new(template: 'cycle_dock', name: nearest_cycle_dock.name, geo_point: nearest_cycle_dock.lonlat, points: max_cycle_dock_points)
+    else
+      misses << Score.new(template: 'cycle_dock', name: nearest_cycle_dock.name, geo_point: nearest_cycle_dock.lonlat, points: max_cycle_dock_points)
     end
 
+    # Pret scoring
+    max_pret_points = 10
     if distance_to_nearest_pret < 500
-      scores << Score.new(template: 'pret', address: nearest_pret.address, geo_point: nearest_pret.lonlat, points: 10)
+      scores << Score.new(template: 'pret', address: nearest_pret.address, geo_point: nearest_pret.lonlat, points: max_pret_points)
+    else
+      misses << Score.new(template: 'pret', address: nearest_pret.address, geo_point: nearest_pret.lonlat, points: max_pret_points)
     end
 
+    # PTAL scoring
+    max_ptal_points = 50
     if ptal_value
       points = case ptal_value.byptal
         when "1a" then 1
@@ -60,6 +86,14 @@ class Scorecard
         end
 
       scores << Score.new(template: 'ptal', name: ptal_value.byptal, points: points)
+
+      # Add miss if not the maximum score for this category
+      if points < max_ptal_points
+        missed_points = max_ptal_points - points
+        misses << Score.new(template: 'ptal', name: ptal_value.byptal, points: missed_points)
+      end
+    else
+      misses << Score.new(template: 'ptal', name: nil, points: max_ptal_points)
     end
   end
 

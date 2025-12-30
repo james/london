@@ -44,5 +44,21 @@
         <%= render partial: "/home/scores/#{score.template}", locals: {score: score} %>
       </div>
     <% end %>
+
+    <% if @scorecard.misses.any? %>
+      <div class="score_total">
+        <h2>Here are the things keeping <%= params[:postcode] %> from being more London</h2>
+      </div>
+
+      <% @scorecard.misses.each do |score| %>
+        <% if score.geo_point.present? %>
+          <div class="score" data-geopoint="<%= score.geo_point.to_json %>" data-action="click->map#showPoint">
+        <% else %>
+          <div class="score" data-action="click->map#clearMap">
+        <% end %>
+          <%= render partial: "/home/misses/#{score.template}", locals: {score: score} %>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
