@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import L from 'leaflet'
-import "@maptiler/leaflet-maptilersdk";
+
 export default class extends Controller {
     connect() {
         const latitude = this.element.dataset.mapLatitude;
@@ -12,10 +12,12 @@ export default class extends Controller {
 
         this.map.setMaxBounds(L.latLngBounds(L.latLng(50, -7.5), L.latLng(56, 2)));
 
-        const mtLayer = new L.MaptilerLayer({
-            apiKey: "vPTKvn3quFUGwtEkShs8",
-            style: "85105982-deff-46dc-879f-70b866a06391"
-          }).addTo(this.map);
+        // Stadia Alidade Smooth vector tiles
+        L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=ba014b6b-df00-4e55-934d-8a5989d21c57', {
+            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+            maxZoom: 20
+        }).addTo(this.map);
+
         this.userMarker = L.marker([latitude, longitude]).addTo(this.map);
     }
 
@@ -36,7 +38,7 @@ export default class extends Controller {
             [this.element.dataset.mapLatitude, this.element.dataset.mapLongitude],
             [latitude, longitude]
         ];
-        this.line = L.polyline(latlngs, { color: 'blue', dashArray: '5, 10' }).addTo(this.map);
+        this.line = L.polyline(latlngs, { color: '#B11226', dashArray: '5, 10', weight: 3 }).addTo(this.map);
 
         this.map.fitBounds(this.line.getBounds());
     }
