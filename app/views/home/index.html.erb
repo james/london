@@ -4,15 +4,17 @@
     data-map-longitude="<%= @scorecard.longitude %>"
   <% end %>
 >
-  <div id="map_header">
-    <h1>Do you live in London?</h1>
+  <% unless @scorecard %>
+    <div id="map_header">
+      <h1>Do you live in London?</h1>
 
-    <form action="<%= root_path %>" method="get">
-      <label for="postcode">Type in your postcode and find out how in London you are:</label>
-      <input type="text" id="postcode" name="postcode" value="<%= params[:postcode] %>">
-      <input type="submit" value="Submit">
-    </form>
-  </div>
+      <form action="<%= root_path %>" method="get">
+        <label for="postcode">Type in your postcode and find out how in London you are:</label>
+        <input type="text" id="postcode" name="postcode" value="<%= params[:postcode] %>">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  <% end %>
 
   <% if @error %>
     <div class="score_total">
@@ -24,12 +26,13 @@
     </div>
   <% elsif @scorecard %>
     <div class="score_total">
-      <h2><%= params[:postcode] %> is <%= @scorecard.percentage_of_max_score %>% in London</h2>
+      <h2><span class="postcode"><%= params[:postcode] %></span> is <span class="percentage"><%= @scorecard.percentage_of_max_score %>%</span> in London</h2>
+      <p><%= link_to "Try another postcode", root_path %></p>
     </div>
 
     <div id="map"></div>
 
-    <div class="score_total">
+    <div class="scores_header">
       <h2>Here are the things that put <%= params[:postcode] %> in London</h2>
     </div>
 
@@ -51,7 +54,7 @@
     <% end %>
 
     <% if @scorecard.misses.any? %>
-      <div class="score_total">
+      <div class="misses_header">
         <h2>Here are the things keeping <%= params[:postcode] %> from being more London</h2>
       </div>
 

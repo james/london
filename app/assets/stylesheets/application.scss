@@ -46,30 +46,77 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 // ----------
+// Design tokens
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$color-background: #F7F7F5;
+$color-text: #111827;
+$color-heading: #0B1F33;
+$color-accent: #B11226;
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: $font-family;
     font-size: 16px;
     line-height: 1.5;
-    color: #333;
-    background-color: #f4f4f4;
+    color: $color-text;
+    background-color: $color-background;
     margin: 0;
     padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $color-heading;
+    font-weight: normal;
+}
+
+.score_total {
+    h2{
+        width: 100%;
+        text-align: center;
+        font-size: 1.8em;
+    }
+    .postcode {
+        font-weight: bold;
+    }
+
+    .percentage {
+        font-weight: bold;
+        color: $color-accent;
+    }
+
+    p {
+        font-size: 0.8em;
+        text-align: center;
+    }
 }
 
 form {
 
     input[type="text"] {
         padding: 10px;
-        border: 1px solid #ddd;
+        border: 2px solid darken($color-background, 10%);
+        border-radius: 4px;
+        background-color: white;
+        color: $color-text;
+
+        &:focus {
+            outline: none;
+            border-color: $color-accent;
+        }
     }
 
     input[type="submit"] {
-        background-color: #333;
-        color: #fff;
+        background-color: $color-accent;
+        color: white;
         padding: 10px 20px;
         border: none;
+        border-radius: 4px;
         cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: darken($color-accent, 8%);
+        }
     }
 }
 
@@ -84,17 +131,31 @@ form {
 }
 
 .score_total,
-.score {
+.score,
+.misses_header,
+.scores_header {
     margin: 1em;
-    border: 1px solid #ddd;
+    border: 1px solid darken($color-background, 8%);
     padding: 1em;
+    background-color: white;
+    border-radius: 8px;
+    transition: box-shadow 0.2s ease;
+}
+
+.score {
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    &:hover {
+        box-shadow: 0 2px 8px rgba($color-heading, 0.1);
+    }
+
     .points {
         font-size: 1.5em;
-        font-weight: bold;
-        background-color: green;
+        font-weight: 600;
+        background-color: $color-accent;
         color: white;
         padding: 0.2em 0.5em;
         width: 2.5em;
@@ -102,6 +163,7 @@ form {
         max-width: 2.5em;
         text-align: center;
         box-sizing: border-box;
+        border-radius: 6px;
         p {
             font-size: 0.5em;
             font-weight: normal;
@@ -110,9 +172,10 @@ form {
 }
 
 .miss .points {
-    background-color: red;
+    background-color: darken($color-text, 10%);
 }
 
 .score_total {
-    background-color: #ddd;
+    background-color: darken($color-background, 3%);
+    border-color: darken($color-background, 12%);
 }
