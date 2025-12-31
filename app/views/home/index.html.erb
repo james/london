@@ -33,7 +33,7 @@
       <h2>Here are the things that put <%= params[:postcode] %> in London</h2>
     </div>
 
-    <% @scorecard.scores.each do |score| %>
+    <% @scorecard.scores.sort_by { |s| -s.points }.each do |score| %>
       <% if score.geojson.present? %>
         <div class="score" data-geojson="<%= score.geojson %>" data-action="click->map#showArea">
       <% elsif score.geo_point.present? %>
@@ -55,7 +55,7 @@
         <h2>Here are the things keeping <%= params[:postcode] %> from being more London</h2>
       </div>
 
-      <% @scorecard.misses.each do |score| %>
+      <% @scorecard.misses.sort_by { |s| -s.points }.each do |score| %>
         <% if score.geo_point.present? %>
           <div class="score miss" data-geopoint="<%= score.geo_point.to_json %>" data-action="click->map#showPoint">
         <% else %>
