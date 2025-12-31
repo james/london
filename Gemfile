@@ -53,6 +53,7 @@ end
 
 group :test do
   gem "webmock"
+  gem "capybara"
 end
 
 group :development do
