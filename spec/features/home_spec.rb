@@ -16,7 +16,7 @@ RSpec.feature "Home page postcode lookup", type: :feature do
 
     visit root_path(postcode: 'TR18 5EG')
 
-    expect(page).to have_text("That's not even close to London")
+    expect(page).to have_text("TR18 5EG is 0% in London")
   end
 
   describe "Leyton postcode E10 5LL" do

@@ -20,10 +20,6 @@
     <div class="score_total">
       <h2><%= @error %></h2>
     </div>
-  <% elsif @scorecard&.total_points == 0 %>
-    <div class="score_total">
-      <h2>That's not even close to London</h2>
-    </div>
   <% elsif @scorecard %>
     <div class="score_total">
       <h2><span class="postcode"><%= params[:postcode] %></span> is <span class="percentage"><%= @scorecard.percentage_of_max_score %>%</span> in London</h2>
@@ -32,9 +28,11 @@
 
     <div id="map"></div>
 
-    <div class="scores_header">
-      <h2>Here are the things that put <%= params[:postcode] %> in London</h2>
-    </div>
+    <% if @scorecard.scores.any? %>
+      <div class="scores_header">
+        <h2>Here are the things that put <%= params[:postcode] %> in London</h2>
+      </div>
+    <% end %>
 
     <% @scorecard.scores.sort_by { |s| -s.points }.each do |score| %>
       <% if score.geojson.present? %>
