@@ -41,7 +41,12 @@
       <% else %>
         <div class="score" data-action="click->map#clearMap">
       <% end %>
-        <%= render partial: "/home/scores/#{score.template}", locals: {score: score} %>
+        <div class="score_content">
+          <%= render partial: "/home/scores/#{score.template}", locals: {score: score} %>
+        </div>
+        <div class="points">
+          <%= score.points %><p>points</p>
+        </div>
       </div>
     <% end %>
 
@@ -52,11 +57,16 @@
 
       <% @scorecard.misses.each do |score| %>
         <% if score.geo_point.present? %>
-          <div class="score" data-geopoint="<%= score.geo_point.to_json %>" data-action="click->map#showPoint">
+          <div class="score miss" data-geopoint="<%= score.geo_point.to_json %>" data-action="click->map#showPoint">
         <% else %>
-          <div class="score" data-action="click->map#clearMap">
+          <div class="score miss" data-action="click->map#clearMap">
         <% end %>
-          <%= render partial: "/home/misses/#{score.template}", locals: {score: score} %>
+          <div class="score_content">
+            <%= render partial: "/home/misses/#{score.template}", locals: {score: score} %>
+          </div>
+          <div class="points">
+            -<%= score.points %><p>points</p>
+          </div>
         </div>
       <% end %>
     <% end %>
