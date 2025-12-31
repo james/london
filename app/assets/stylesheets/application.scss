@@ -89,8 +89,26 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-form {
+header {
+    background-color: $color-accent;
+    padding: 1em 0;
+    text-align: center;
+    margin-bottom: 1em;
 
+    h1 {
+        margin: 0;
+        font-size: 3em;
+        font-weight: normal;
+        color: white;
+
+        .james {
+            font-size: 0.4em;
+            display: block;
+            font-weight: normal;
+        }
+    }
+}
+form {
     input[type="text"] {
         padding: 10px;
         border: 2px solid darken($color-background, 10%);
@@ -120,9 +138,11 @@ form {
     }
 }
 
-#map_header {
-    margin: 0 1em;
-
+#intro {
+    margin: 0 auto 2em auto;
+    padding: 0 1em;
+    font-size: 1.1em;
+    line-height: 1.6;
 }
 
 #map {
