@@ -11,8 +11,25 @@ class Scorecard
     @scores = []
     @misses = []
 
+    # Track which area types we found
+    found_area_types = []
+
     areas.each do |area|
       scores << Score.new(name: area.name, template: area.area_type, points: area.score, geojson: area.geojson)
+      found_area_types << area.area_type
+    end
+
+    # Add misses for area types we didn't find
+    all_area_types = LondonArea.distinct.pluck(:area_type).compact
+    missed_area_types = all_area_types - found_area_types
+
+    missed_area_types.each do |area_type|
+      # Skip outer_borough miss if inner_borough was found
+      next if area_type == 'outer_borough' && found_area_types.include?('inner_borough')
+
+      # Get the maximum score for this area type to show what was missed
+      max_score = LondonArea.where(area_type: area_type).maximum(:score) || 0
+      misses << Score.new(template: area_type, points: max_score)
     end
 
     # Tube station scoring

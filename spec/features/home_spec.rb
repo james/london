@@ -149,5 +149,69 @@ RSpec.feature "Home page postcode lookup", type: :feature do
     scenario "shows drainage area" do
       expect(page).to have_text("Beckton sewage treatment works")
     end
+
+    scenario "shows no misses" do
+      expect(page).not_to have_text("Here are the things keeping SW1A 1AA from being more London")
+    end
+  end
+
+  describe "Bristol postcode BS1 1NG" do
+    before do
+      stub_request(:get, "https://api.postcodes.io/postcodes/BS1%201NG").
+      to_return(status: 200, body:'{"status":200,"result":{"postcode":"BS1 1NG","quality":1,"eastings":358767,"northings":172859,"country":"England","nhs_ha":"South West","longitude":-2.594796,"latitude":51.4532,"european_electoral_region":"South West","primary_care_trust":"Bristol","region":"South West","lsoa":"Bristol 061B","msoa":"Bristol 061","incode":"1NG","outcode":"BS1","parliamentary_constituency":"Bristol Central","parliamentary_constituency_2024":"Bristol Central","admin_district":"Bristol, City of","parish":"Bristol, City of, unparished area","admin_county":null,"date_of_introduction":"201808","admin_ward":"Central","ced":null,"ccg":"NHS Bristol, North Somerset and South Gloucestershire","nuts":"Bristol, City of","pfa":"Avon and Somerset","nhs_region":"South West","ttwa":"Bristol","national_park":"England (non-National Park)","bua":"Bristol","icb":"NHS Bristol, North Somerset and South Gloucestershire Integrated Care Board","cancer_alliance":"Somerset, Wiltshire, Avon and Gloucestershire","lsoa11":"Bristol 032B","msoa11":"Bristol 032","lsoa21":"Bristol 061B","msoa21":"Bristol 061","oa21":"E00174295","ruc11":"(England/Wales) Urban city and town","ruc21":"Urban: Nearer to a major town or city","lep1":"West of England","lep2":null,"codes":{"admin_district":"E06000023","admin_county":"E99999999","admin_ward":"E05010892","parish":"E43000019","parliamentary_constituency":"E14001131","parliamentary_constituency_2024":"E14001131","ccg":"E38000222","ccg_id":"15C","ced":"E99999999","nuts":"TLK51","lsoa":"E01033908","msoa":"E06006952","lau2":"E06000023","pfa":"E23000036","nhs_region":"E40000006","ttwa":"E30000180","national_park":"E65000001","bua":"E63012168","icb":"E54000039","cancer_alliance":"E56000033","lsoa11":"E01014540","msoa11":"E02003043","lsoa21":"E01033908","msoa21":"E02006952","oa21":"E00174295","ruc11":"C1","ruc21":"UN1","lep1":"E37000037","lep2":null}}}')
+      visit root_path(postcode: 'BS1 1NG')
+    end
+
+    scenario "shows low score" do
+      expect(page).to have_text("BS1 1NG is 4% in London")
+    end
+
+    scenario "shows nearby Pret" do
+      expect(page).to have_text("Nearby Pret A Manger")
+    end
+
+    scenario "shows miss for inner borough" do
+      expect(page).to have_text("Not in an inner London borough")
+    end
+
+    scenario "shows miss for outer borough" do
+      expect(page).to have_text("Not in an outer London borough")
+    end
+
+    scenario "shows miss for phone area" do
+      expect(page).to have_text("Not in a London phone area")
+    end
+
+    scenario "shows miss for postcode" do
+      expect(page).to have_text("Not in a London postcode area")
+    end
+
+    scenario "shows miss for sewage" do
+      expect(page).to have_text("Not in Thames Water sewage area")
+    end
+
+    scenario "shows miss for travel to work area" do
+      expect(page).to have_text("Not in London travel to work area")
+    end
+
+    scenario "shows miss for ULEZ" do
+      expect(page).to have_text("Not in ULEZ area")
+    end
+
+    scenario "shows miss for tube station" do
+      expect(page).to have_text("No nearby tube station")
+    end
+
+    scenario "shows miss for night tube" do
+      expect(page).to have_text("No nearby Night Tube")
+    end
+
+    scenario "shows miss for cycle dock" do
+      expect(page).to have_text("No nearby cycle dock")
+    end
+
+    scenario "shows miss for PTAL" do
+      expect(page).to have_text("Lower TFL Travel Accessibility Rating")
+    end
   end
 end
