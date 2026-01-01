@@ -16,6 +16,22 @@ jobs:
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      - run: flyctl ssh console --command "bin/rails db:migrate && bin/rails data:migrate"
+      - name: Wait for app to be ready
+        run: |
+          echo "Waiting for app to start..."
+          for i in {1..30}; do
+            if flyctl status --app london-little-fog-3167 | grep -q "started"; then
+              echo "App is ready!"
+              break
+            fi
+            echo "Waiting... (attempt $i/30)"
+            sleep 10
+          done
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - run: flyctl ssh console --command "bin/rails db:migrate"
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - run: flyctl ssh console --command "bin/rails data:migrate"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
