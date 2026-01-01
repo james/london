@@ -138,13 +138,6 @@ form {
     }
 }
 
-#intro {
-    margin: 0 auto 2em auto;
-    padding: 0 1em;
-    font-size: 1.1em;
-    line-height: 1.6;
-}
-
 #map {
     height: 300px;
     width: 100%;
@@ -203,13 +196,34 @@ form {
 .score_total,
 .score,
 .misses_header,
-.scores_header {
+.scores_header,
+#intro .card,
+#intro form {
     margin: 1em;
     border: 1px solid darken($color-background, 8%);
     padding: 1em;
     background-color: white;
     border-radius: 8px;
     transition: box-shadow 0.2s ease;
+}
+
+#intro {
+    margin: 0 auto;
+    padding: 1em;
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 860px;
+    p {
+        margin-bottom: 0.5em;
+    }
+    form {
+        margin-top: 1em;
+        text-align: center;
+        label {
+            margin-bottom: 0;
+            display: block;
+        }
+    }
 }
 
 .score {
