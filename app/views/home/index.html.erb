@@ -32,6 +32,23 @@
     </div>
   <% elsif @scorecard %>
     <div class="score_total">
+      <div class="gauge-container" data-controller="gauge" data-gauge-percentage-value="<%= @scorecard.percentage_of_max_score %>">
+        <svg class="gauge" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background arc -->
+          <path class="gauge-background" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke-width="20" stroke-linecap="round"/>
+
+          <!-- Colored segments -->
+          <path class="gauge-segment gauge-segment-low" d="M 20 100 A 80 80 0 0 1 68 32" fill="none" stroke-width="20" stroke-linecap="round"/>
+          <path class="gauge-segment gauge-segment-medium" d="M 68 32 A 80 80 0 0 1 132 32" fill="none" stroke-width="20" stroke-linecap="round"/>
+          <path class="gauge-segment gauge-segment-high" d="M 132 32 A 80 80 0 0 1 180 100" fill="none" stroke-width="20" stroke-linecap="round"/>
+
+          <!-- Center circle -->
+          <circle cx="100" cy="100" r="8" class="gauge-center"/>
+
+          <!-- Needle -->
+          <line x1="100" y1="100" x2="100" y2="35" class="gauge-needle" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
       <h2><span class="postcode"><%= params[:postcode] %></span> is <span class="percentage"><%= @scorecard.percentage_of_max_score %>%</span> in London</h2>
       <p><%= link_to "Try another postcode", root_path %></p>
     </div>

@@ -89,6 +89,48 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+// Gauge chart styles
+.gauge-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 1em;
+}
+
+.gauge {
+    width: 200px;
+    height: 120px;
+}
+
+.gauge-background {
+    stroke: darken($color-background, 10%);
+}
+
+.gauge-segment {
+    stroke-linecap: round;
+}
+
+.gauge-segment-low {
+    stroke: #DC2626; // Red for low percentages
+}
+
+.gauge-segment-medium {
+    stroke: #F59E0B; // Amber for medium percentages
+}
+
+.gauge-segment-high {
+    stroke: #10B981; // Green for high percentages
+}
+
+.gauge-center {
+    fill: $color-heading;
+}
+
+.gauge-needle {
+    stroke: $color-heading;
+    transform-origin: 100px 100px;
+    transition: transform 0.3s ease-out;
+}
+
 header {
     background-color: $color-accent;
     padding: 1em 0;
