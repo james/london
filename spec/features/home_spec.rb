@@ -38,12 +38,12 @@ RSpec.feature "Home page postcode lookup", type: :feature do
       expect(page).to have_text("Waltham Forest, an Outer London Borough")
     end
 
-    scenario "shows ULEZ 2021" do
-      expect(page).to have_text("ULEZ since 2021")
+    scenario "shows North and South Circular" do
+      expect(page).to have_text("Within the North and South Circular")
     end
 
-    scenario "shows ULEZ 2023" do
-      expect(page).to have_text("ULEZ since 2023")
+    scenario "shows M25" do
+      expect(page).to have_text("Within the M25")
     end
 
     scenario "shows 020 phone area" do
@@ -102,16 +102,16 @@ RSpec.feature "Home page postcode lookup", type: :feature do
       expect(page).to have_text("Westminster, an Inner London Borough")
     end
 
-    scenario "shows ULEZ 2021" do
-      expect(page).to have_text("ULEZ since 2021")
+    scenario "shows North and South Circular" do
+      expect(page).to have_text("Within the North and South Circular")
     end
 
-    scenario "shows Congestion Charge Zone" do
-      expect(page).to have_text("Congestion Charge Zone")
+    scenario "shows London Inner Ring Road" do
+      expect(page).to have_text("Within the London Inner Ring Road")
     end
 
-    scenario "shows ULEZ 2023" do
-      expect(page).to have_text("ULEZ since 2023")
+    scenario "shows M25" do
+      expect(page).to have_text("Within the M25")
     end
 
     scenario "shows Zone 1" do
@@ -194,8 +194,8 @@ RSpec.feature "Home page postcode lookup", type: :feature do
       expect(page).to have_text("Not in London travel to work area")
     end
 
-    scenario "shows miss for ULEZ" do
-      expect(page).to have_text("Not in ULEZ area")
+    scenario "shows miss for ring roads" do
+      expect(page).to have_text("Not within major London ring roads")
     end
 
     scenario "shows miss for tube station" do

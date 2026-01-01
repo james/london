@@ -14,11 +14,11 @@ RSpec.describe LondonArea, type: :model do
       expect(areas).to include(borough)
     end
 
-    it "returns the ULEZ zones" do
-      ulez2021 = LondonArea.find_by(name: 'ULEZ 2021')
-      ulez2023 = LondonArea.find_by(name: 'ULEZ 2023')
-      expect(areas).to include(ulez2021)
-      expect(areas).to include(ulez2023)
+    it "returns the road boundary zones" do
+      north_south_circular = LondonArea.find_by(name: 'North and South Circular')
+      m25 = LondonArea.find_by(name: 'M25')
+      expect(areas).to include(north_south_circular)
+      expect(areas).to include(m25)
     end
 
     it "returns the 020 area code" do
