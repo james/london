@@ -1,0 +1,74 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Approximate enclosure of the medieval City of London wall (with Thames river wall)",
+        "description": "Hand-built approximation of the historic walled City boundary using the known gate locations (Aldgate, Bishopsgate, Moorgate, Cripplegate, Aldersgate, Newgate, Ludgate) and a simplified Thames edge using major bridge coordinates.",
+        "note": "This is an approximation (not a surveyed archaeological boundary). Gate points come from Wikidata/Wikipedia coordinate locations; Thames edge is approximated using bridge coordinates.",
+        "created_utc": "2026-01-01T15:19:16Z",
+        "crs": "EPSG:4326"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -0.07594444444444444,
+              51.50944444444445
+            ],
+            [
+              -0.07777777777777778,
+              51.513333333333335
+            ],
+            [
+              -0.08152777777777778,
+              51.51625
+            ],
+            [
+              -0.08861111111111111,
+              51.5175
+            ],
+            [
+              -0.0931473,
+              51.518087
+            ],
+            [
+              -0.09722222222222221,
+              51.5175
+            ],
+            [
+              -0.10172222222222223,
+              51.51616666666666
+            ],
+            [
+              -0.10230555555555557,
+              51.51397222222222
+            ],
+            [
+              -0.1044,
+              51.5097
+            ],
+            [
+              -0.098438,
+              51.510173
+            ],
+            [
+              -0.09444,
+              51.50889
+            ],
+            [
+              -0.08778,
+              51.50806
+            ],
+            [
+              -0.07594444444444444,
+              51.50944444444445
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

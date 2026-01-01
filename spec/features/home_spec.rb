@@ -27,7 +27,7 @@ RSpec.feature "Home page postcode lookup", type: :feature do
     end
 
     scenario "shows the score" do
-      expect(page).to have_text("E10 5LL is 56% in London")
+      expect(page).to have_text("E10 5LL is 52% in London")
     end
 
     scenario "shows drainage area" do
@@ -87,19 +87,23 @@ RSpec.feature "Home page postcode lookup", type: :feature do
     end
   end
 
-  describe "Westminster postcode SW1A 1AA" do
+  describe "City of London postcode EC2R 8AH" do
     before do
-      stub_request(:get, "https://api.postcodes.io/postcodes/SW1A%201AA").
-      to_return(status: 200, body:'{"status":200,"result":{"postcode":"SW1A 1AA","quality":1,"eastings":529090,"northings":179645,"country":"England","nhs_ha":"London","longitude":-0.141563,"latitude":51.50101,"european_electoral_region":"London","primary_care_trust":"Westminster","region":"London","lsoa":"Westminster 018C","msoa":"Westminster 018","incode":"1AA","outcode":"SW1A","parliamentary_constituency":"Cities of London and Westminster","parliamentary_constituency_2024":"Cities of London and Westminster","admin_district":"Westminster","parish":"Westminster, unparished area","admin_county":null,"date_of_introduction":"198001","admin_ward":"St James\'s","ced":null,"ccg":"NHS North West London","nuts":"Westminster","pfa":"Metropolitan Police","codes":{"admin_district":"E09000033","admin_county":"E99999999","admin_ward":"E05013806","parish":"E43000236","parliamentary_constituency":"E14001172","parliamentary_constituency_2024":"E14001172","ccg":"E38000256","ccg_id":"W2U3Z","ced":"E99999999","nuts":"TLI35","lsoa":"E01004736","msoa":"E02000977","lau2":"E09000033","pfa":"E23000001"}}}')
-      visit root_path(postcode: 'SW1A 1AA')
+      stub_request(:get, "https://api.postcodes.io/postcodes/EC2R%208AH").
+      to_return(status: 200, body:'{"status":200,"result":{"postcode":"EC2R 8AH","quality":1,"eastings":532726,"northings":181205,"country":"England","nhs_ha":"London","longitude":-0.088622,"latitude":51.514188,"european_electoral_region":"London","primary_care_trust":"City and Hackney Teaching","region":"London","lsoa":"City of London 001F","msoa":"City of London 001","incode":"8AH","outcode":"EC2R","parliamentary_constituency":"Cities of London and Westminster","parliamentary_constituency_2024":"Cities of London and Westminster","admin_district":"City of London","parish":"City of London, unparished area","admin_county":null,"date_of_introduction":"200408","admin_ward":"Walbrook","ced":null,"ccg":"NHS North East London","nuts":"City of London","pfa":"City of London","nhs_region":"London","ttwa":"London","national_park":"England (non-National Park)","bua":"City and County of the City of London","icb":"NHS North East London Integrated Care Board","cancer_alliance":"North East London","lsoa11":"City of London 001F","msoa11":"City of London 001","lsoa21":"City of London 001F","msoa21":"City of London 001","oa21":"E00166755","ruc11":"(England/Wales) Urban major conurbation","ruc21":"Urban: Nearer to a major town or city","lep1":"London","lep2":null,"codes":{"admin_district":"E09000001","admin_county":"E99999999","admin_ward":"E05009312","parish":"E43000191","parliamentary_constituency":"E14001172","parliamentary_constituency_2024":"E14001172","ccg":"E38000255","ccg_id":"A3A8R","ced":"E99999999","nuts":"TLI35","lsoa":"E01032739","msoa":"E02000001","lau2":"E09000001","pfa":"E23000034","nhs_region":"E40000003","ttwa":"E30000234","national_park":"E65000001","bua":"E63012025","icb":"E54000029","cancer_alliance":"E56000028","lsoa11":"E01032739","msoa11":"E02000001","lsoa21":"E01032739","msoa21":"E02000001","oa21":"E00166755","ruc11":"A1","ruc21":"UN1","lep1":"E37000051","lep2":null}}}')
+      visit root_path(postcode: 'EC2R 8AH')
     end
 
     scenario "shows the score" do
-      expect(page).to have_text("SW1A 1AA is 100% in London")
+      expect(page).to have_text("EC2R 8AH is 100% in London")
     end
 
-    scenario "shows Westminster borough" do
-      expect(page).to have_text("Westminster, an Inner London Borough")
+    scenario "shows City of London" do
+      expect(page).to have_text("City of London, an Inner London Borough")
+    end
+
+    scenario "shows Historical London Wall" do
+      expect(page).to have_text("Within the Historical London Wall")
     end
 
     scenario "shows North and South Circular" do
@@ -131,7 +135,7 @@ RSpec.feature "Home page postcode lookup", type: :feature do
     end
 
     scenario "shows Night Tube" do
-      expect(page).to have_text("Victoria tube station is nearby, which runs 24 hours")
+      expect(page).to have_text("tube station is nearby, which runs 24 hours")
     end
 
     scenario "shows Cycle Dock" do
@@ -151,7 +155,7 @@ RSpec.feature "Home page postcode lookup", type: :feature do
     end
 
     scenario "shows no misses" do
-      expect(page).not_to have_text("Here are the things keeping SW1A 1AA from being more London")
+      expect(page).not_to have_text("Here are the things keeping EC2R 8AH from being more London")
     end
   end
 

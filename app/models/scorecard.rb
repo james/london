@@ -2,7 +2,7 @@ class Scorecard
   attr_accessor :latitude, :longitude, :scores, :misses
 
   def self.max_score
-    self.new(51.518092, -0.082102).total_points
+    self.new(51.514188, -0.088622).total_points
   end
 
   def initialize(latitude, longitude)
