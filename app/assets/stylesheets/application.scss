@@ -143,6 +143,16 @@ header {
         font-weight: normal;
         color: white;
 
+        a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+
         .james {
             font-size: 0.4em;
             display: block;
@@ -304,4 +314,18 @@ form {
 .score_total {
     background-color: darken($color-background, 3%);
     border-color: darken($color-background, 12%);
+}
+
+.scores_header,
+.misses_header {
+    background-color: $color-heading;
+    border-color: $color-heading;
+
+    h2 {
+        color: white;
+        font-size: 1.3em;
+        font-weight: 500;
+        text-align: center;
+        margin: 0;
+    }
 }
