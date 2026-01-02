@@ -1,0 +1,58 @@
+<header>
+  <h1>
+    <span class="james">James Darling's</span>
+    Londometer
+  </h1>
+</header>
+<div id="heatmap-container">
+  <div id="map"></div>
+  <div id="intro">
+    <div class="card">
+      <h2>London Heatmap</h2>
+      <p>This map shows how "London" different locations are across the Greater London area and surroundings.</p>
+      <p>Red areas score highest (most London), while green areas score lowest (least London).</p>
+      <p><%= link_to "Back to homepage", root_path %></p>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import L from 'leaflet';
+
+  // Initialize map
+  const map = L.map('map').setView([51.5074, -0.1278], 10);
+  map.options.minZoom = 6;
+  map.options.maxZoom = 18;
+  map.setMaxBounds(L.latLngBounds(L.latLng(50, -7.5), L.latLng(56, 2)));
+
+  // Add tile layer
+  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=ba014b6b-df00-4e55-934d-8a5989d21c57', {
+    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+    maxZoom: 20
+  }).addTo(map);
+
+  // Load and display heatmap
+  async function loadHeatmap() {
+    try {
+      console.log('Loading heatmap bounds...');
+      const response = await fetch('/data/heatmap_bounds.json');
+      const data = await response.json();
+
+      const [minLat, maxLat, minLng, maxLng] = data.bounds;
+
+      // Create image overlay
+      const imageBounds = [[minLat, minLng], [maxLat, maxLng]];
+      const heatmapLayer = L.imageOverlay('/data/heatmap.png', imageBounds, {
+        opacity: 0.6,
+        interactive: false
+      });
+
+      heatmapLayer.addTo(map);
+      console.log('Heatmap image overlay added to map');
+    } catch (error) {
+      console.error('Failed to load heatmap:', error);
+    }
+  }
+
+  loadHeatmap();
+</script>

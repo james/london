@@ -14,4 +14,7 @@ class HomeController < ApplicationController
       end
     end
   end
+
+  def heatmap
+  end
 end
