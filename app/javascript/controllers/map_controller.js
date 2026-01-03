@@ -6,11 +6,42 @@ export default class extends Controller {
         const latitude = this.element.dataset.mapLatitude;
         const longitude = this.element.dataset.mapLongitude;
 
-        this.map = L.map(this.element.querySelector('#map')).setView([latitude, longitude], 14);
+        this.map = L.map(this.element.querySelector('#map'), {
+            scrollWheelZoom: false,
+            dragging: true,
+            tap: false
+        }).setView([latitude, longitude], 14);
         this.map.options.minZoom = 6;
         this.map.options.maxZoom = 18;
 
         this.map.setMaxBounds(L.latLngBounds(L.latLng(50, -7.5), L.latLng(56, 2)));
+
+        // Handle touch interactions - only allow two-finger gestures
+        const mapElement = this.element.querySelector('#map');
+        mapElement.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                // Single finger touch - prevent map interaction to allow page scroll
+                e.preventDefault();
+                this.map.dragging.disable();
+            } else if (e.touches.length >= 2) {
+                // Two or more fingers - allow map interaction
+                this.map.dragging.enable();
+            }
+        }, { passive: false });
+
+        mapElement.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) {
+                // Less than two fingers remaining - disable dragging
+                this.map.dragging.disable();
+            }
+        });
+
+        mapElement.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 1) {
+                // Single finger - allow page scroll, prevent map pan
+                this.map.dragging.disable();
+            }
+        });
 
         // Stadia Alidade Smooth vector tiles
         L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=ba014b6b-df00-4e55-934d-8a5989d21c57', {
