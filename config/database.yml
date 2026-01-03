@@ -82,3 +82,10 @@ production:
   database: london_production
   username: london
   password: <%= ENV["LONDON_DATABASE_PASSWORD"] %>
+  # Increase pool size for production traffic
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
+  # Add connection timeout
+  connect_timeout: 2
+  checkout_timeout: 5
+  # Enable prepared statements for better performance
+  prepared_statements: true
