@@ -99,7 +99,7 @@ RSpec.feature "Home page postcode lookup", type: :feature do
     end
 
     scenario "shows City of London" do
-      expect(page).to have_text("City of London, an Inner London Borough")
+      expect(page).to have_text("City of London, which is an Inner London Borough")
     end
 
     scenario "shows Historical London Wall" do
@@ -147,7 +147,7 @@ RSpec.feature "Home page postcode lookup", type: :feature do
     end
 
     scenario "shows TFL Travel Accessibility Rating" do
-      expect(page).to have_text("TFL gives this area a rating of 6b")
+      expect(page).to have_text("Your postcode has a rating of 6b")
     end
 
     scenario "shows drainage area" do
