@@ -99,4 +99,8 @@ class Score
     @zone = args[:zone]
     @geo_point = args[:geo_point]
   end
+
+  def percentage_points
+    ((points.to_f / Scorecard.max_score) * 100).round(1)
+  end
 end

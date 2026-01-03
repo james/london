@@ -294,16 +294,10 @@ form {
         background-color: $color-accent;
         color: white;
         padding: 0.2em 0.5em;
-        width: 2.5em;
-        min-width: 2.5em;
-        max-width: 2.5em;
+        min-width: 4em;
         text-align: center;
         box-sizing: border-box;
         border-radius: 6px;
-        p {
-            font-size: 0.5em;
-            font-weight: normal;
-        }
     }
 }
 

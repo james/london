@@ -75,7 +75,7 @@
           <%= render partial: "/home/scores/#{score.template}", locals: {score: score} %>
         </div>
         <div class="points">
-          <%= score.points %><p>points</p>
+          +<%= score.percentage_points %>%
         </div>
       </div>
     <% end %>
@@ -95,7 +95,7 @@
             <%= render partial: "/home/misses/#{score.template}", locals: {score: score} %>
           </div>
           <div class="points">
-            -<%= score.points %><p>points</p>
+            -<%= score.percentage_points %>%
           </div>
         </div>
       <% end %>
