@@ -62,7 +62,18 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  # Use Redis for caching in production for better performance under load
+  config.cache_store = :redis_cache_store, {
+    url: ENV.fetch("REDIS_URL", "redis://localhost:6379/1"),
+    connect_timeout: 2,
+    read_timeout: 1,
+    write_timeout: 1,
+    reconnect_attempts: 1,
+    error_handler: -> (method:, returning:, exception:) {
+      # Log cache errors but don't crash the app
+      Rails.logger.error("Cache error: #{exception.class} - #{exception.message}")
+    }
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
