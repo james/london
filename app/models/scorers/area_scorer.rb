@@ -23,15 +23,24 @@ module Scorers
     end
 
     def add_area_misses(found_area_types)
-      all_area_types = LondonArea.distinct.pluck(:area_type).compact
-      missed_area_types = all_area_types - found_area_types
+      missed_area_types = all_area_types_with_scores.keys - found_area_types
 
       missed_area_types.each do |area_type|
         # Skip outer_borough miss if inner_borough was found
         next if area_type == 'outer_borough' && found_area_types.include?('inner_borough')
 
-        max_score = LondonArea.where(area_type: area_type).maximum(:score) || 0
+        max_score = all_area_types_with_scores[area_type] || 0
         add_miss(template: area_type, points: max_score)
+      end
+    end
+
+    # Cache area types and their max scores to avoid N+1 queries
+    def all_area_types_with_scores
+      @all_area_types_with_scores ||= Rails.cache.fetch('london_area_types_with_max_scores', expires_in: 1.day) do
+        LondonArea
+          .where.not(area_type: nil)
+          .group(:area_type)
+          .maximum(:score)
       end
     end
   end
