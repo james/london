@@ -268,6 +268,12 @@ GEM
     sass-embedded (1.83.0-x86_64-linux-gnu)
       google-protobuf (~> 4.28)
     securerandom (0.4.1)
+    sentry-rails (6.2.0)
+      railties (>= 5.2.0)
+      sentry-ruby (~> 6.2.0)
+    sentry-ruby (6.2.0)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -326,6 +332,8 @@ DEPENDENCIES
   redis (>= 4.0.1)
   rgeo-geojson
   rspec-rails (~> 5.0.0)
+  sentry-rails
+  sentry-ruby
   sprockets-rails
   stackprof
   stimulus-rails
