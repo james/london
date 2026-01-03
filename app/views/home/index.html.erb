@@ -19,11 +19,11 @@
         <p>Some say you're in London if you're within the M25, others say London ends at Zone 2. These arbitrary lines are too simple.</p>
         <p>James Darling's Londometer uses data and maths to create a much more complicated arbitrary percentage</p>
       </div>
-      <form action="<%= root_path %>" method="get">
+      <form action="<%= root_path %>" method="get" data-controller="form" data-action="submit->form#submit">
         <label for="postcode">Type your postcode below to find out how confidently you can say you live in London.</label>
         <br />
         <input type="text" id="postcode" name="postcode" value="<%= params[:postcode] %>">
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" data-form-target="submit">
       </form>
     </div>
   <% end %>
