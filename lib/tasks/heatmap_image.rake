@@ -84,14 +84,24 @@ namespace :heatmap do
     # Same color scheme as JavaScript, but with alpha channel
     alpha = (0.6 * 255).round  # 60% opacity
 
-    if percentage < 20
+    if percentage < 10
       ChunkyPNG::Color.rgba(0, 255, 0, alpha)      # Green
-    elsif percentage < 40
+    elsif percentage < 20
+      ChunkyPNG::Color.rgba(68, 255, 0, alpha)     # Light green
+    elsif percentage < 30
       ChunkyPNG::Color.rgba(136, 255, 0, alpha)    # Yellow-green
+    elsif percentage < 40
+      ChunkyPNG::Color.rgba(204, 255, 0, alpha)    # Lime
+    elsif percentage < 50
+      ChunkyPNG::Color.rgba(255, 238, 0, alpha)    # Bright yellow
     elsif percentage < 60
-      ChunkyPNG::Color.rgba(255, 221, 0, alpha)    # Yellow
+      ChunkyPNG::Color.rgba(255, 204, 0, alpha)    # Golden yellow
+    elsif percentage < 70
+      ChunkyPNG::Color.rgba(255, 170, 0, alpha)    # Light orange
     elsif percentage < 80
       ChunkyPNG::Color.rgba(255, 136, 0, alpha)    # Orange
+    elsif percentage < 90
+      ChunkyPNG::Color.rgba(255, 68, 0, alpha)     # Red-orange
     else
       ChunkyPNG::Color.rgba(255, 0, 0, alpha)      # Red
     end
