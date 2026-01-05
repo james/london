@@ -25,6 +25,17 @@
         <input type="text" id="postcode" name="postcode" value="<%= params[:postcode] %>">
         <input type="submit" value="Submit" data-form-target="submit">
       </form>
+       <div class="card">
+         <p>
+            Or try some example locations:
+            <%= link_to "Buckingham Palace", root_path(postcode: "SW1A 1AA") %>,
+            <%= link_to "Bank of England", root_path(postcode: "EC2R 8AH") %>,
+            <%= link_to "Notting Hill", root_path(postcode: "W11 1EH") %>,
+            <%= link_to "Crystal Palace", root_path(postcode: "SE19 1UE") %>,
+            <%= link_to "Edinburgh Castle", root_path(postcode: "EH1 2NG") %>.
+            Or <%= link_to "view the heatmap", heatmap_path %>.
+          </p>
+        </div>
     </div>
   <% end %>
 
