@@ -33,9 +33,6 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", ">= 4.0.1"
 
-# Rate limiting to prevent abuse
-gem "rack-attack"
-
 gem "sentry-ruby"
 gem "sentry-rails"
 
